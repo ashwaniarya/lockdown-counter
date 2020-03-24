@@ -15,7 +15,12 @@ const Home = () =>{
   let endDateMoment = moment(endDate)
   
   let [ currentDate, updateCurrentDate ] = useState(moment());
-  let remainingDay = endDateMoment.diff(startDateMoment, 'days');
+  let remainingDay = endDateMoment.diff(currentDate, 'days');
+  let remainingSeconds = endDateMoment.diff(currentDate, 'seconds');
+  let days = Math.floor(remainingSeconds/86400)
+  let hours = Math.floor((remainingSeconds/86400 - days) * 24)
+  let mins = Math.floor(((remainingSeconds/86400 - days) * 24 - hours) * 60)
+  let secs = Math.round((((remainingSeconds/86400 - days) * 24 - hours) * 60 - mins) * 60)
   return (
     <div className="container">
       <Head>
@@ -30,9 +35,23 @@ const Home = () =>{
           <h3 style={{marginRight: '30px'}}>{moment(startDate).format('DD MMM YYYY')}</h3>
           <h3>{moment(endDate).format('DD MMM YYYY')}</h3>
         </div>
-        <div className={'daysRemaining'}>
-          <h2>{remainingDay}</h2>
-          <h4 style={{ marginTop: 0}}>Day{remainingDay>1?'s':''} remaining</h4>
+        <div style={{ display: 'flex'}}>
+          <div className={'daysRemaining'}>
+            <h2 className='time' >{days}</h2>
+            <h4 style={{ marginTop: 0}}>DAY{remainingDay>1?'S':''}</h4>
+          </div>
+          <div className={'daysRemaining'}>
+            <h2 className='time'>{hours}</h2>
+            <h4 style={{ marginTop: 0}}>HOUR{hours>1?'S':''}</h4>
+          </div>
+          <div className={'daysRemaining'}>
+            <h2 className='time'>{mins}</h2>
+            <h4 style={{ marginTop: 0}}>MIN</h4>
+          </div>
+          <div className={'daysRemaining'}>
+            <h2 className='time'>{secs}</h2>
+            <h4 style={{ marginTop: 0}}>SEC</h4>
+          </div>
         </div>
           <h4>Date/Time : {moment(currentDate).format('DD MMM YYYY / hh:mm:ss a')}</h4>
         <div>
@@ -71,10 +90,30 @@ const Home = () =>{
           flex-direction: column;
           justify-content: center;
           align-items: center;
+          margin-left: 20px;
+          margin-right: 20px;
         }
-        .daysRemaining > h2 {
+        .time {
           margin: 0px;
           font-size: 120px;
+        }
+        @media ( max-width: 720px ) {
+          .time {
+            margin: 0px;
+            font-size: 80px;
+          }
+        }
+        @media ( max-width: 512px ) {
+          .time {
+            margin: 0px;
+            font-size: 60px;
+          }
+        }
+        @media ( max-width: 430px ) {
+          .time {
+            margin: 0px;
+            font-size: 35px;
+          }
         }
         main {
           padding: 5rem 0;
