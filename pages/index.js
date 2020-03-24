@@ -19,7 +19,7 @@ const Home = () =>{
   return (
     <div className="container">
       <Head>
-        <title>COVID-19 INDAI LOCKDOWN</title>
+        <title>COVID-19 INDIA LOCKDOWN</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
